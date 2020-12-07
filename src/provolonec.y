@@ -34,7 +34,7 @@
 
 
 %token ENTRADA
-// %token ID
+%token ID
 %token SAIDA
 %token INC
 %token ZERA
