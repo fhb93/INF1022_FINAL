@@ -20,6 +20,14 @@
     int length = 0;
 
 /* operacoes da linguagem */
+    char * createVar(char * sym1);
+    char * addVar(char * sym1);
+    char * addSymbol(char * sym1);
+    char * concat(char * sym1, char * sym2);
+    char * whileAssembly(char * sym1, char * sym2);
+    char * increment(char * sym1);
+    char * nullify(char * sym1);
+    char * equals(char * sym1, char * sym2);
 
 
 /* extras para o yacc */
