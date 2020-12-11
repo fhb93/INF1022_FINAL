@@ -19,6 +19,8 @@
 /* comprimento da palavra */
     int length = 0;
 
+    extern int yylineno;
+
 /* operacoes de montagem do código objeto */
     char * assembler(char * sym1, char * sym2, char * sym3);
     char * header(char * str);
@@ -36,7 +38,7 @@
     int yylex();
     void yyerror(const char * str)
     {
-        fprintf(stderr,"%s\n", str);
+        fprintf(stderr,"%s - line %d\n", str, yylineno);
 
     };
 
@@ -48,32 +50,29 @@
     int num;
 };
 
-%type<str> program varlist0 varlist1 cmds cmd;
+%type<str> program varlist cmds cmd;
 %token<str> ID;
+%token<num> PROGRAM;
 %token<num> ENTRADA;
 %token<num> SAIDA;
 %token<num> IGUAL;
 %token<num> INC;
 %token<num> ZERA;
 %token<num> ENQUANTO;
-%token<num> FIMENQUANTO
 %token<num> FACA;
 %token<num> FIM;
 
 %start program
 %% 
 
-program : ENTRADA varlist0 SAIDA varlist1 cmds FIM { char * output = assembler($2, $4, $5); printf("\n\nCodigo Objeto em C: \n%s", output) ; exit(1); };
-varlist0 : ID { char * output = createVar($1); $$=output; };
-         | varlist0 ID { char * output = addVar($2); out = concat($1, output); $$=out; };
-
-varlist1 : ID { char * output = addSymbol($1); $$=output; };
-         | varlist1 ID { char * output = addSymbol($2); out = concat($1, output); $$=out; };
+program: PROGRAM ENTRADA varlist SAIDA varlist cmds FIM { char * output = assembler($3, $5, $6); printf("\n\nCodigo Objeto em C: \n%s", output) ; exit(1); };
+varlist : ID { char * output = createVar($1); $$=output; };
+         | varlist ID { char * output = addVar($2); out = concat($1, output); $$=out; };
 
 cmds    : cmd { $$=$1; };
         | cmd cmds { char * output = concat($1, $2); $$=output; };
 
-cmd     : ENQUANTO ID FACA cmds FIMENQUANTO { char * output = whileAssembly($2, $4); output = concat(output, " }\n"); $$=output; out = concat(out, output); };
+cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); output = concat(output, " }\n"); $$=output; out = concat(out, output); };
 cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
 
 char * header(char * str)
 {
-    auxiliar1 = "\nint main(int argc, char * argv[])\n{";
+    auxiliar1 = "\nint main(int argc, char * argv[])\n{\t";
 
     length = strlen(str) + strlen(out) + strlen(auxiliar1) + 1;
 
@@ -103,7 +102,7 @@ char * header(char * str)
 
 char * createVar(char * sym1)
 {
-    auxiliar1 = "var ";
+    auxiliar1 = "int ";
     
     auxiliar2 = " = 0;";
     
@@ -126,7 +125,7 @@ char * createVar(char * sym1)
 
 char * addVar(char * sym1)
 {
-    auxiliar1 = "var ";
+    auxiliar1 = "int ";
     
     auxiliar2 = " = 0;";
     
@@ -213,7 +212,7 @@ char * increment(char * sym1)
 
     length = strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar1) + 1;
 
-    char * mem = strlen(length);
+    char * mem = malloc(length);
 
     strcpy(mem, auxiliar1);
 

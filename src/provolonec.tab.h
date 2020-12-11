@@ -46,13 +46,13 @@ extern int yydebug;
   enum yytokentype
   {
     ID = 258,
-    ENTRADA = 259,
-    SAIDA = 260,
-    IGUAL = 261,
-    INC = 262,
-    ZERA = 263,
-    ENQUANTO = 264,
-    FIMENQUANTO = 265,
+    PROGRAM = 259,
+    ENTRADA = 260,
+    SAIDA = 261,
+    IGUAL = 262,
+    INC = 263,
+    ZERA = 264,
+    ENQUANTO = 265,
     FACA = 266,
     FIM = 267
   };
@@ -63,7 +63,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 46 "provolonec.y" /* yacc.c:1919  */
+#line 48 "provolonec.y" /* yacc.c:1919  */
 
     char *str;
     int num;
