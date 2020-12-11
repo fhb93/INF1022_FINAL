@@ -1,7 +1,7 @@
 %option yywrap
     #include <stdio.h>
     #include <string.h>
-
+    #include "provolonec.tab.h"
 %%
 
 ENTRADA         return(ENTRADA);
@@ -13,4 +13,4 @@ FIM             return(FIM);
 "="             return(IGUAL);
 INC             return(INC);
 ZERA            return(ZERA);
-[a-zA-Z]+       {   yyval.str = strdup(yytext); return ID;  }
+[a-zA-Z]+       {   yylval.str = strdup(yytext); return ID;  }

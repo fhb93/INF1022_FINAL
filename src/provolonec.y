@@ -19,7 +19,9 @@
 /* comprimento da palavra */
     int length = 0;
 
-/* operacoes da linguagem */
+/* operacoes de montagem do código objeto */
+    char * assembler(char * sym1, char * sym2, char * sym3);
+    char * header(char * str);
     char * createVar(char * sym1);
     char * addVar(char * sym1);
     char * addSymbol(char * sym1);
@@ -49,7 +51,6 @@
 %type<str> program varlist0 varlist1 cmds cmd;
 %token<str> ID;
 %token<num> ENTRADA;
-// %token ID
 %token<num> SAIDA;
 %token<num> IGUAL;
 %token<num> INC;
@@ -70,10 +71,10 @@ varlist1 : ID { char * output = addSymbol($1); $$=output; };
          | varlist1 ID { char * output = addSymbol($2); out = concat($1, output); $$=out; };
 
 cmds    : cmd { $$=$1; };
-        | cmd cmds { char * output = concat($1, $2); $$=output };
+        | cmd cmds { char * output = concat($1, $2); $$=output; };
 
 cmd     : ENQUANTO ID FACA cmds FIMENQUANTO { char * output = whileAssembly($2, $4); output = concat(output, " }\n"); $$=output; out = concat(out, output); };
-cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output };
+cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
 
@@ -85,6 +86,21 @@ int main(int argc, char *argv[])
     return(0);
 }
 
+char * header(char * str)
+{
+    auxiliar1 = "\nint main(int argc, char * argv[])\n{";
+
+    length = strlen(str) + strlen(out) + strlen(auxiliar1) + 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, str);
+
+    strcat(mem, auxiliar1);
+
+    return mem;
+}
+
 char * createVar(char * sym1)
 {
     auxiliar1 = "var ";
@@ -93,7 +109,7 @@ char * createVar(char * sym1)
     
     auxiliar3 = "\n";
 
-    length += strlen(aux1) + strlen(sym1) + strlen(auxiliar2) = strlen(auxiliar3) + 1;
+    length += strlen(auxiliar1) + strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar3) + 1;
 
     char * mem = malloc(length * sizeof(char));
 
@@ -116,7 +132,7 @@ char * addVar(char * sym1)
     
     auxiliar3 = "\n";
 
-    length += strlen(aux1) + strlen(sym1) + strlen(auxiliar2) = strlen(auxiliar3) + 1;
+    length += strlen(auxiliar1) + strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar3) + 1;
     
     char * mem = malloc(length * sizeof(char));
 
@@ -242,6 +258,25 @@ char * nullify(char * sym1)
     strcat(mem, sym1);
 
     strcat(mem, auxiliar2);
+
+    return mem;
+}
+
+char * assembler(char * sym1, char * sym2, char * sym3)
+{
+    auxiliar1 = "*** INF1022: PROVOL-ONE COMPILER ***\n";
+    
+    auxiliar2 = "\n*** PROVOL-ONE COMPILER - END OF OUTPUT ***\n";
+
+    char * mem = concat(auxiliar1, sym1);
+
+    mem = header(mem);
+
+    mem = concat(mem, sym2);
+
+    mem = concat(mem, sym3);
+
+    mem = concat(mem, auxiliar2);
 
     return mem;
 }
