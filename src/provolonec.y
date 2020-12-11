@@ -188,3 +188,60 @@ char * whileAssembly(char * sym1, char * sym2)
     return mem;
 
 }
+
+char * increment(char * sym1)
+{
+    auxiliar1 = "\n ";
+    
+    auxiliar2 = " += 1;";
+
+    length = strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar1) + 1;
+
+    char * mem = strlen(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    return mem;
+}
+
+char * equals(char * sym1, char * sym2)
+{
+    auxiliar1 = "\n ";
+    auxiliar2 = " = ";
+    length = strlen(auxiliar1) + strlen(sym1) + strlen(sym2)+ strlen(auxiliar2) + 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    strcat(mem, sym2);
+
+    return mem;
+}
+
+char * nullify(char * sym1)
+{
+    auxiliar1 = "\n ";
+    
+    auxiliar2 = " = 0;";
+
+    length = strlen(auxiliar1) + strlen(sym1) + strlen(auxiliar2) + 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    return mem;
+}
