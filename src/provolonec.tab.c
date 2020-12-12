@@ -92,15 +92,12 @@
 /*  Linha com erro de sintaxe */
     extern int yylineno;
 
-/*  numero de variaveis */
-
-    int varCount = 0;
-
 /* operacoes de montagem do código objeto */
     char * assembler(char * sym1, char * sym2, char * sym3);
     char * header(char * str1, char * str2);
     char * createVar(char * sym1);
     char * addVar(char * sym1);
+    char * returnVarList(char * str1);
     char * addSymbol(char * sym1);
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
@@ -108,7 +105,6 @@
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
-    char * footer(char * sym1);
 
 /* extras para o yacc */
     int yylex();
@@ -119,7 +115,7 @@
     };
 
 
-#line 123 "provolonec.tab.c"
+#line 119 "provolonec.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -534,8 +530,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    74,    74,    75,    76,    78,    79,    82,    83,    85,
-      86,    87,    88
+       0,    70,    70,    71,    72,    74,    75,    78,    79,    81,
+      82,    83,    84
 };
 #endif
 
@@ -1121,73 +1117,73 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM  */
-#line 74 "provolonec.y"
+#line 70 "provolonec.y"
                                                           { char * output = assembler((yyvsp[-4].str), (yyvsp[-2].str), (yyvsp[-1].str)); printf("\n\nCodigo Objeto em C: \n%s", output) ; exit(1); }
-#line 1127 "provolonec.tab.c"
+#line 1123 "provolonec.tab.c"
     break;
 
   case 3: /* varlist1: ID  */
-#line 75 "provolonec.y"
+#line 71 "provolonec.y"
               { char * output = createVar((yyvsp[0].str)); (yyval.str)=output; }
-#line 1133 "provolonec.tab.c"
+#line 1129 "provolonec.tab.c"
     break;
 
   case 4: /* varlist1: varlist1 ID  */
-#line 76 "provolonec.y"
+#line 72 "provolonec.y"
                       { char * output = createVar((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1139 "provolonec.tab.c"
+#line 1135 "provolonec.tab.c"
     break;
 
   case 5: /* varlist2: ID  */
-#line 78 "provolonec.y"
-              { char * output = addVar((yyvsp[0].str)); (yyval.str)=output; }
-#line 1145 "provolonec.tab.c"
+#line 74 "provolonec.y"
+              { char * output = returnVarList((yyvsp[0].str)); (yyval.str)=output; }
+#line 1141 "provolonec.tab.c"
     break;
 
   case 6: /* varlist2: varlist2 ID  */
-#line 79 "provolonec.y"
-                      { char * output = addVar((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1151 "provolonec.tab.c"
+#line 75 "provolonec.y"
+                      { char * output = returnVarList((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
+#line 1147 "provolonec.tab.c"
     break;
 
   case 7: /* cmds: cmd  */
-#line 82 "provolonec.y"
+#line 78 "provolonec.y"
               { (yyval.str)=(yyvsp[0].str); }
-#line 1157 "provolonec.tab.c"
+#line 1153 "provolonec.tab.c"
     break;
 
   case 8: /* cmds: cmd cmds  */
-#line 83 "provolonec.y"
+#line 79 "provolonec.y"
                    { char * output = concat((yyvsp[-1].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1163 "provolonec.tab.c"
+#line 1159 "provolonec.tab.c"
     break;
 
   case 9: /* cmd: ENQUANTO ID FACA cmds FIM  */
-#line 85 "provolonec.y"
-                                    { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); output = concat(output, " }\n"); (yyval.str)=output; out = concat(out, output); }
-#line 1169 "provolonec.tab.c"
+#line 81 "provolonec.y"
+                                    { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); output = concat(output, "\n}\n"); (yyval.str)=output; out = concat(out, output); }
+#line 1165 "provolonec.tab.c"
     break;
 
   case 10: /* cmd: ID IGUAL ID  */
-#line 86 "provolonec.y"
+#line 82 "provolonec.y"
                       { char * output = equals((yyvsp[-2].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1175 "provolonec.tab.c"
+#line 1171 "provolonec.tab.c"
     break;
 
   case 11: /* cmd: INC ID  */
-#line 87 "provolonec.y"
+#line 83 "provolonec.y"
                  { char * output = increment((yyvsp[0].str)); (yyval.str)=output; }
-#line 1181 "provolonec.tab.c"
+#line 1177 "provolonec.tab.c"
     break;
 
   case 12: /* cmd: ZERA ID  */
-#line 88 "provolonec.y"
+#line 84 "provolonec.y"
                   { char * output = nullify((yyvsp[0].str)); (yyval.str)=output; }
-#line 1187 "provolonec.tab.c"
+#line 1183 "provolonec.tab.c"
     break;
 
 
-#line 1191 "provolonec.tab.c"
+#line 1187 "provolonec.tab.c"
 
       default: break;
     }
@@ -1381,7 +1377,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 90 "provolonec.y"
+#line 86 "provolonec.y"
 
 
 int main(int argc, char *argv[])
@@ -1394,14 +1390,12 @@ char * header(char * str1, char * str2)
 {
     auxiliar1 = "void function(";
 
-    auxiliar2 = ", int * ";
+    auxiliar2 = ", int ";
 
     auxiliar3 = strtok(str2, "int ");
     
-    auxiliar4 = ")\n{\n\t"; 
+    auxiliar4 = ")\n{\n"; 
     //auxiliar4 = strtok(str2, ";");
-
-    printf("%s\n", auxiliar3);
 
     length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
     
@@ -1464,6 +1458,21 @@ char * addVar(char * sym1)
     return mem;
 }
 
+char * returnVarList(char * str1)
+{
+    auxiliar1 = " *";
+
+    length = strlen(auxiliar1) + strlen(str1) + 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, str1);
+
+    return mem;
+}
+
 char * addSymbol(char * sym1)
 {
     auxiliar1 = " ";
@@ -1516,9 +1525,11 @@ char * whileAssembly(char * sym1, char * sym2)
     
     auxiliar3 = ")\n\t{";
 
-    auxiliar4 = "\n\t}";
+    auxiliar4 = "\n\t\t";
 
-    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(sym1) + strlen(auxiliar3) + strlen(sym2) + strlen(auxiliar4) + 1;
+    auxiliar5 = "\n\t}";
+
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(sym1) + strlen(auxiliar3) + strlen(sym2) + strlen(auxiliar4) + strlen(auxiliar5) + 1;
 
     char * mem = malloc(length * sizeof(char));
 
@@ -1530,9 +1541,11 @@ char * whileAssembly(char * sym1, char * sym2)
 
     strcat(mem, auxiliar3);
 
+    strcat(mem, auxiliar4);
+
     strcat(mem, sym2);
 
-    strcat(mem, auxiliar4);
+    strcat(mem, auxiliar5);
 
     return mem;
 
@@ -1540,26 +1553,24 @@ char * whileAssembly(char * sym1, char * sym2)
 
 char * increment(char * sym1)
 {
-    auxiliar1 = "\n\t";
-    
-    auxiliar2 = " += 1;";
+    auxiliar1 = " += 1;";    
 
-    length = strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar1) + 1;
+    length = strlen(sym1) + strlen(auxiliar1) + 1;
 
     char * mem = malloc(length);
 
-    strcpy(mem, auxiliar1);
+    strcpy(mem, sym1);
 
-    strcat(mem, sym1);
+    strcat(mem, auxiliar1);
 
-    strcat(mem, auxiliar2);
+    // strcat(mem, auxiliar2);
 
     return mem;
 }
 
 char * equals(char * sym1, char * sym2)
 {
-    auxiliar1 = "\n\t";
+    auxiliar1 = "\t";
     
     auxiliar2 = " = ";
 
@@ -1602,38 +1613,22 @@ char * nullify(char * sym1)
     return mem;
 }
 
-char * footer(char * str)
-{
-    char * prog = str;
-
-    char * ret = "return returnv;";
-
-    if(varCount > 0)
-    {
-        strcat(prog, ret);
-    }
-
-    return prog;
-}
-
 char * assembler(char * sym1, char * sym2, char * sym3)
 {
     // auxiliar1 = "*** INF1022: PROVOL-ONE COMPILER ***\n";
     
     // auxiliar2 = "\n*** PROVOL-ONE COMPILER - END OF OUTPUT ***\n";
-    printf("%d\n", varCount);
-
     char * paramList = sym1;
 
     char * returnList = sym2;
 
     char * mem = header(paramList, returnList);
 
-    mem = concat(mem, sym2);
+    // mem = concat(mem, sym2);
 
     mem = concat(mem, sym3);
 
-    mem = footer(mem);
+    // mem = footer(mem);
   //  mem = concat(mem, auxiliar2);
 
     return mem;

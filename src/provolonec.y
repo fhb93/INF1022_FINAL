@@ -22,15 +22,12 @@
 /*  Linha com erro de sintaxe */
     extern int yylineno;
 
-/*  numero de variaveis */
-
-    int varCount = 0;
-
 /* operacoes de montagem do código objeto */
     char * assembler(char * sym1, char * sym2, char * sym3);
     char * header(char * str1, char * str2);
     char * createVar(char * sym1);
     char * addVar(char * sym1);
+    char * returnVarList(char * str1);
     char * addSymbol(char * sym1);
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
@@ -38,7 +35,6 @@
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
-    char * footer(char * sym1);
 
 /* extras para o yacc */
     int yylex();
@@ -75,14 +71,14 @@ program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM { char * output = asse
 varlist1 : ID { char * output = createVar($1); $$=output; };
         | varlist1 ID { char * output = createVar($2); out = concatVars($1, output); $$=out; };
 
-varlist2 : ID { char * output = addVar($1); $$=output; };
-        | varlist2 ID { char * output = addVar($2); out = concatVars($1, output); $$=out; };
+varlist2 : ID { char * output = returnVarList($1); $$=output; };
+        | varlist2 ID { char * output = returnVarList($2); out = concatVars($1, output); $$=out; };
 
 
 cmds    : cmd { $$=$1; };
         | cmd cmds { char * output = concat($1, $2); $$=output; };
 
-cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); output = concat(output, " }\n"); $$=output; out = concat(out, output); };
+cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); output = concat(output, "\n}\n"); $$=output; out = concat(out, output); };
 cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
@@ -99,14 +95,12 @@ char * header(char * str1, char * str2)
 {
     auxiliar1 = "void function(";
 
-    auxiliar2 = ", int * ";
+    auxiliar2 = ", int ";
 
     auxiliar3 = strtok(str2, "int ");
     
-    auxiliar4 = ")\n{\n\t"; 
+    auxiliar4 = ")\n{\n"; 
     //auxiliar4 = strtok(str2, ";");
-
-    printf("%s\n", auxiliar3);
 
     length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
     
@@ -169,6 +163,21 @@ char * addVar(char * sym1)
     return mem;
 }
 
+char * returnVarList(char * str1)
+{
+    auxiliar1 = " *";
+
+    length = strlen(auxiliar1) + strlen(str1) + 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, str1);
+
+    return mem;
+}
+
 char * addSymbol(char * sym1)
 {
     auxiliar1 = " ";
@@ -221,9 +230,11 @@ char * whileAssembly(char * sym1, char * sym2)
     
     auxiliar3 = ")\n\t{";
 
-    auxiliar4 = "\n\t}";
+    auxiliar4 = "\n\t\t";
 
-    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(sym1) + strlen(auxiliar3) + strlen(sym2) + strlen(auxiliar4) + 1;
+    auxiliar5 = "\n\t}";
+
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(sym1) + strlen(auxiliar3) + strlen(sym2) + strlen(auxiliar4) + strlen(auxiliar5) + 1;
 
     char * mem = malloc(length * sizeof(char));
 
@@ -235,9 +246,11 @@ char * whileAssembly(char * sym1, char * sym2)
 
     strcat(mem, auxiliar3);
 
+    strcat(mem, auxiliar4);
+
     strcat(mem, sym2);
 
-    strcat(mem, auxiliar4);
+    strcat(mem, auxiliar5);
 
     return mem;
 
@@ -245,32 +258,29 @@ char * whileAssembly(char * sym1, char * sym2)
 
 char * increment(char * sym1)
 {
-    auxiliar1 = "\n\t";
-    
-    auxiliar2 = " += 1;";
+    auxiliar1 = " += 1;";    
 
-    length = strlen(sym1) + strlen(auxiliar2) + strlen(auxiliar1) + 1;
+    length = strlen(sym1) + strlen(auxiliar1) + 1;
 
     char * mem = malloc(length);
 
-    strcpy(mem, auxiliar1);
+    strcpy(mem, sym1);
 
-    strcat(mem, sym1);
+    strcat(mem, auxiliar1);
 
-    strcat(mem, auxiliar2);
+    // strcat(mem, auxiliar2);
 
     return mem;
 }
 
 char * equals(char * sym1, char * sym2)
 {
-    auxiliar1 = "\n\t";
+    auxiliar1 = "\t";
     
     auxiliar2 = " = ";
 
     auxiliar3 = ";";
 
-    //2 pq ; conta como 1 char
     length = strlen(auxiliar1) + strlen(sym1) + strlen(sym2)+ strlen(auxiliar2) + strlen(auxiliar3) + 1;
 
     char * mem = malloc(length);
@@ -307,27 +317,18 @@ char * nullify(char * sym1)
     return mem;
 }
 
-char * footer(char * str)
-{
-   
-
-    return prog;
-}
-
 char * assembler(char * sym1, char * sym2, char * sym3)
 {
     // auxiliar1 = "*** INF1022: PROVOL-ONE COMPILER ***\n";
     
     // auxiliar2 = "\n*** PROVOL-ONE COMPILER - END OF OUTPUT ***\n";
-    printf("%d\n", varCount);
-
     char * paramList = sym1;
 
     char * returnList = sym2;
 
     char * mem = header(paramList, returnList);
 
-    mem = concat(mem, sym2);
+    // mem = concat(mem, sym2);
 
     mem = concat(mem, sym3);
 

@@ -72,7 +72,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 54 "provolonec.y"
+#line 50 "provolonec.y"
 
     char *str;
     int num;
