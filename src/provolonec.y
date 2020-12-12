@@ -97,64 +97,33 @@ int main(int argc, char *argv[])
 
 char * header(char * str1, char * str2)
 {
-    char * mem;
+    auxiliar1 = "void function(";
 
-    auxiliar1 = "\n";
+    auxiliar2 = ", int * ";
 
-    auxiliar2 = ")\n{\n\t";
-
-    auxiliar3 = "int * returnv = malloc(";
-
-    auxiliar4 = " * sizeof(int));\n";
-
-    if(strlen(str2) == 0)
-    {
-        auxiliar1 = "void function(";
-    }
-    else{
-        auxiliar1 = "int * function(";
-    }
-  
+    auxiliar3 = strtok(str2, "int ");
     
+    auxiliar4 = ")\n{\n\t"; 
+    //auxiliar4 = strtok(str2, ";");
 
-    if(varCount > 0)
-    {
-        
-        // //sprintf(auxiliar5, "%d", varCount); 
+    printf("%s\n", auxiliar3);
 
-      //  printf("%s", auxiliar5);
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
+    
+    length += strlen(str1) + strlen(auxiliar4) + 1;  
 
-        length = strlen(out) + strlen(str1) + strlen(str2) + strlen(auxiliar1) + strlen(auxiliar2)+ strlen(auxiliar3) + strlen(auxiliar4) + 2;
+    char * mem = malloc(length);
 
-        mem = malloc(length);
+    strcpy(mem, auxiliar1);
 
-        strcpy(mem, auxiliar1);
+    strcat(mem, str1);
 
-        strcat(mem, str1);
+    strcat(mem, auxiliar2);
 
-        strcat(mem, auxiliar2);
-     
-        strcat(mem, auxiliar3);
+    strcat(mem, auxiliar3);
 
-        strcat(mem, "1");
-        
-        strcat(mem, auxiliar4);
-    }
-    else
-    {
-        length = strlen(out) + strlen(str1) + strlen(str2) + strlen(auxiliar1) + strlen(auxiliar2) + 1;
-
-        mem = malloc(length);
-
-        strcpy(mem, auxiliar1);
-
-        strcat(mem, str1);
-
-        strcat(mem, auxiliar2);
-     
-
-    }
-
+    strcat(mem, auxiliar4);
+    
     return mem;
 }
 
@@ -183,9 +152,7 @@ char * createVar(char * sym1)
 
 char * addVar(char * sym1)
 {
-    varCount++; 
-
-    auxiliar1 = "\tint ";
+    auxiliar1 = "int ";
     
     auxiliar2 = " = 0;";
 
@@ -342,14 +309,7 @@ char * nullify(char * sym1)
 
 char * footer(char * str)
 {
-    char * prog = str;
-
-    char * ret = "return returnv;";
-
-    if(varCount > 0)
-    {
-        strcat(prog, ret);
-    }
+   
 
     return prog;
 }
@@ -371,7 +331,7 @@ char * assembler(char * sym1, char * sym2, char * sym3)
 
     mem = concat(mem, sym3);
 
-    mem = footer(mem);
+    // mem = footer(mem);
   //  mem = concat(mem, auxiliar2);
 
     return mem;
