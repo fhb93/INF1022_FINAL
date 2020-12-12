@@ -319,21 +319,27 @@ char * nullify(char * sym1)
 
 char * assembler(char * sym1, char * sym2, char * sym3)
 {
-    // auxiliar1 = "*** INF1022: PROVOL-ONE COMPILER ***\n";
+    char * head = "*** INF1022: PROVOL-ONE COMPILER ***\n";
     
-    // auxiliar2 = "\n*** PROVOL-ONE COMPILER - END OF OUTPUT ***\n";
+    char * foot = "\n*** PROVOL-ONE COMPILER - END OF OUTPUT ***\n";
+    
     char * paramList = sym1;
 
     char * returnList = sym2;
 
     char * mem = header(paramList, returnList);
 
-    // mem = concat(mem, sym2);
-
     mem = concat(mem, sym3);
+    
+    length = strlen(head) + strlen(foot) + strlen(mem) + 1;
 
-    // mem = footer(mem);
-  //  mem = concat(mem, auxiliar2);
+    char * finalOut = malloc(length);
 
-    return mem;
+    strcpy(finalOut, head);
+
+    strcat(finalOut, mem);
+
+    strcat(finalOut, foot);
+
+    return finalOut;
 }

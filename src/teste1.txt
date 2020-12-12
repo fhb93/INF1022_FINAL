@@ -1,5 +1,5 @@
 Program ENTRADA X, Y
-        SAIDA  Z
+        SAIDA Z
         Z=Y
         ENQUANTO X FACA
             INC(Z)
