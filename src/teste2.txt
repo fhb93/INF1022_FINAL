@@ -5,4 +5,5 @@ Program ENTRADA X, Y
             INC(Z)
         FIM
         ZERA(X)
+        X = Y
     FIM

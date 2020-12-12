@@ -1118,7 +1118,7 @@ yyreduce:
     {
   case 2: /* program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM  */
 #line 70 "provolonec.y"
-                                                          { char * output = assembler((yyvsp[-4].str), (yyvsp[-2].str), (yyvsp[-1].str)); printf("\n\nCodigo Objeto em C: \n%s", output) ; exit(1); }
+                                                          { char * output = assembler((yyvsp[-4].str), (yyvsp[-2].str), (yyvsp[-1].str)); printf("\n\nCodigo Objeto em C: \n%s", output); exit(1); }
 #line 1123 "provolonec.tab.c"
     break;
 
@@ -1160,7 +1160,7 @@ yyreduce:
 
   case 9: /* cmd: ENQUANTO ID FACA cmds FIM  */
 #line 81 "provolonec.y"
-                                    { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); output = concat(output, "\n}\n"); (yyval.str)=output; out = concat(out, output); }
+                                    { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
 #line 1165 "provolonec.tab.c"
     break;
 
@@ -1570,7 +1570,7 @@ char * increment(char * sym1)
 
 char * equals(char * sym1, char * sym2)
 {
-    auxiliar1 = "\t";
+    auxiliar1 = "\n\t";
     
     auxiliar2 = " = ";
 
@@ -1595,7 +1595,7 @@ char * equals(char * sym1, char * sym2)
 
 char * nullify(char * sym1)
 {
-    auxiliar1 = "\n ";
+    auxiliar1 = "\n\t";
     
     auxiliar2 = " = 0;";
 
@@ -1624,15 +1624,19 @@ char * assembler(char * sym1, char * sym2, char * sym3)
 
     char * mem = header(paramList, returnList);
 
+    char * ending = "\n}";
+    
     mem = concat(mem, sym3);
     
-    length = strlen(head) + strlen(foot) + strlen(mem) + 1;
+    length = strlen(head) + strlen(foot) + strlen(mem) + strlen(ending) + 1;
 
     char * finalOut = malloc(length);
 
     strcpy(finalOut, head);
 
     strcat(finalOut, mem);
+
+    strcat(finalOut, ending);
 
     strcat(finalOut, foot);
 

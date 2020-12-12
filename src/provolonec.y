@@ -67,7 +67,7 @@
 %start program
 %% 
 
-program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM { char * output = assembler($3, $5, $6); printf("\n\nCodigo Objeto em C: \n%s", output) ; exit(1); };
+program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM { char * output = assembler($3, $5, $6); printf("\n\nCodigo Objeto em C: \n%s", output); exit(1); };
 varlist1 : ID { char * output = createVar($1); $$=output; };
         | varlist1 ID { char * output = createVar($2); out = concatVars($1, output); $$=out; };
 
@@ -78,7 +78,7 @@ varlist2 : ID { char * output = returnVarList($1); $$=output; };
 cmds    : cmd { $$=$1; };
         | cmd cmds { char * output = concat($1, $2); $$=output; };
 
-cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); output = concat(output, "\n}\n"); $$=output; out = concat(out, output); };
+cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); $$=output; out = concat(out, output); };
 cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
@@ -275,7 +275,7 @@ char * increment(char * sym1)
 
 char * equals(char * sym1, char * sym2)
 {
-    auxiliar1 = "\t";
+    auxiliar1 = "\n\t";
     
     auxiliar2 = " = ";
 
@@ -300,7 +300,7 @@ char * equals(char * sym1, char * sym2)
 
 char * nullify(char * sym1)
 {
-    auxiliar1 = "\n ";
+    auxiliar1 = "\n\t";
     
     auxiliar2 = " = 0;";
 
@@ -329,15 +329,19 @@ char * assembler(char * sym1, char * sym2, char * sym3)
 
     char * mem = header(paramList, returnList);
 
+    char * ending = "\n}";
+    
     mem = concat(mem, sym3);
     
-    length = strlen(head) + strlen(foot) + strlen(mem) + 1;
+    length = strlen(head) + strlen(foot) + strlen(mem) + strlen(ending) + 1;
 
     char * finalOut = malloc(length);
 
     strcpy(finalOut, head);
 
     strcat(finalOut, mem);
+
+    strcat(finalOut, ending);
 
     strcat(finalOut, foot);
 
