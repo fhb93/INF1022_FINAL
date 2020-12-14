@@ -102,6 +102,7 @@
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
     char * whileAssembly(char * sym1, char * sym2);
+    char * ifAssembly(char * sym1, char * sym2);
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
@@ -115,7 +116,7 @@
     };
 
 
-#line 119 "provolonec.tab.c"
+#line 120 "provolonec.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -156,12 +157,15 @@ enum yysymbol_kind_t
   YYSYMBOL_ENQUANTO = 10,                  /* ENQUANTO  */
   YYSYMBOL_FACA = 11,                      /* FACA  */
   YYSYMBOL_FIM = 12,                       /* FIM  */
-  YYSYMBOL_YYACCEPT = 13,                  /* $accept  */
-  YYSYMBOL_program = 14,                   /* program  */
-  YYSYMBOL_varlist1 = 15,                  /* varlist1  */
-  YYSYMBOL_varlist2 = 16,                  /* varlist2  */
-  YYSYMBOL_cmds = 17,                      /* cmds  */
-  YYSYMBOL_cmd = 18                        /* cmd  */
+  YYSYMBOL_SE = 13,                        /* SE  */
+  YYSYMBOL_ENTAO = 14,                     /* ENTAO  */
+  YYSYMBOL_FIMSEENTAO = 15,                /* FIMSEENTAO  */
+  YYSYMBOL_YYACCEPT = 16,                  /* $accept  */
+  YYSYMBOL_program = 17,                   /* program  */
+  YYSYMBOL_varlist1 = 18,                  /* varlist1  */
+  YYSYMBOL_varlist2 = 19,                  /* varlist2  */
+  YYSYMBOL_cmds = 20,                      /* cmds  */
+  YYSYMBOL_cmd = 21                        /* cmd  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -471,19 +475,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   30
+#define YYLAST   32
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  13
+#define YYNTOKENS  16
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  12
+#define YYNRULES  13
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  28
+#define YYNSTATES  33
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   267
+#define YYMAXUTOK   270
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -523,15 +527,16 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    70,    70,    71,    72,    74,    75,    78,    79,    81,
-      82,    83,    84
+       0,    74,    74,    75,    76,    78,    79,    82,    83,    85,
+      86,    87,    88,    89
 };
 #endif
 
@@ -549,7 +554,8 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "ID", "PROGRAM",
   "ENTRADA", "SAIDA", "IGUAL", "INC", "ZERA", "ENQUANTO", "FACA", "FIM",
-  "$accept", "program", "varlist1", "varlist2", "cmds", "cmd", YY_NULLPTR
+  "SE", "ENTAO", "FIMSEENTAO", "$accept", "program", "varlist1",
+  "varlist2", "cmds", "cmd", YY_NULLPTR
 };
 
 static const char *
@@ -565,11 +571,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267
+     265,   266,   267,   268,   269,   270
 };
 #endif
 
-#define YYPACT_NINF (-17)
+#define YYPACT_NINF (-18)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -583,9 +589,10 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -1,    -3,     4,    11,   -17,   -17,    10,   -17,    12,   -17,
-      -2,    13,    14,    15,    16,     9,     2,    19,   -17,   -17,
-      17,   -17,    13,   -17,   -17,     2,    18,   -17
+       1,     9,     3,    12,   -18,   -18,    -2,   -18,    13,   -18,
+      -1,    14,    19,    21,    22,    23,    -6,    10,    24,   -18,
+     -18,     6,    15,   -18,    14,   -18,   -18,    10,    10,    16,
+      17,   -18,   -18
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -594,20 +601,21 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     0,     1,     3,     0,     4,     0,     5,
-       0,     6,     0,     0,     0,     0,     7,     0,    11,    12,
-       0,     2,     0,     8,    10,     0,     0,     9
+       0,     6,     0,     0,     0,     0,     0,     7,     0,    11,
+      12,     0,     0,     2,     0,     8,    10,     0,     0,     0,
+       0,     9,    13
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -17,   -17,   -17,   -17,   -16,   -17
+     -18,   -18,   -18,   -18,   -17,   -18
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     6,    10,    15,    16
+      -1,     2,     6,    10,    16,    17
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -615,41 +623,42 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      23,    11,     3,     1,     4,    22,    12,    13,    14,    26,
-      12,    13,    14,     7,     5,     9,     8,    18,    19,    20,
-      17,    21,    24,     0,     0,     0,     0,     0,    25,     0,
-      27
+      25,     7,    11,     4,     8,     1,    23,    12,    13,    14,
+      29,    30,    15,    24,     3,     5,     9,    27,    12,    13,
+      14,    18,    19,    15,    20,    21,    22,    26,    31,    28,
+       0,     0,    32
 };
 
 static const yytype_int8 yycheck[] =
 {
-      16,     3,     5,     4,     0,     3,     8,     9,    10,    25,
-       8,     9,    10,     3,     3,     3,     6,     3,     3,     3,
-       7,    12,     3,    -1,    -1,    -1,    -1,    -1,    11,    -1,
-      12
+      17,     3,     3,     0,     6,     4,    12,     8,     9,    10,
+      27,    28,    13,     3,     5,     3,     3,    11,     8,     9,
+      10,     7,     3,    13,     3,     3,     3,     3,    12,    14,
+      -1,    -1,    15
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     4,    14,     5,     0,     3,    15,     3,     6,     3,
-      16,     3,     8,     9,    10,    17,    18,     7,     3,     3,
-       3,    12,     3,    17,     3,    11,    17,    12
+       0,     4,    17,     5,     0,     3,    18,     3,     6,     3,
+      19,     3,     8,     9,    10,    13,    20,    21,     7,     3,
+       3,     3,     3,    12,     3,    20,     3,    11,    14,    20,
+      20,    12,    15
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    13,    14,    15,    15,    16,    16,    17,    17,    18,
-      18,    18,    18
+       0,    16,    17,    18,    18,    19,    19,    20,    20,    21,
+      21,    21,    21,    21
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     7,     1,     2,     1,     2,     1,     2,     5,
-       3,     2,     2
+       3,     2,     2,     5
 };
 
 
@@ -1117,73 +1126,79 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM  */
-#line 70 "provolonec.y"
+#line 74 "provolonec.y"
                                                           { char * output = assembler((yyvsp[-4].str), (yyvsp[-2].str), (yyvsp[-1].str)); printf("\n\nCodigo Objeto em C: \n%s", output); exit(1); }
-#line 1123 "provolonec.tab.c"
+#line 1132 "provolonec.tab.c"
     break;
 
   case 3: /* varlist1: ID  */
-#line 71 "provolonec.y"
+#line 75 "provolonec.y"
               { char * output = createVar((yyvsp[0].str)); (yyval.str)=output; }
-#line 1129 "provolonec.tab.c"
+#line 1138 "provolonec.tab.c"
     break;
 
   case 4: /* varlist1: varlist1 ID  */
-#line 72 "provolonec.y"
+#line 76 "provolonec.y"
                       { char * output = createVar((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1135 "provolonec.tab.c"
+#line 1144 "provolonec.tab.c"
     break;
 
   case 5: /* varlist2: ID  */
-#line 74 "provolonec.y"
+#line 78 "provolonec.y"
               { char * output = returnVarList((yyvsp[0].str)); (yyval.str)=output; }
-#line 1141 "provolonec.tab.c"
+#line 1150 "provolonec.tab.c"
     break;
 
   case 6: /* varlist2: varlist2 ID  */
-#line 75 "provolonec.y"
+#line 79 "provolonec.y"
                       { char * output = returnVarList((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1147 "provolonec.tab.c"
+#line 1156 "provolonec.tab.c"
     break;
 
   case 7: /* cmds: cmd  */
-#line 78 "provolonec.y"
+#line 82 "provolonec.y"
               { (yyval.str)=(yyvsp[0].str); }
-#line 1153 "provolonec.tab.c"
+#line 1162 "provolonec.tab.c"
     break;
 
   case 8: /* cmds: cmd cmds  */
-#line 79 "provolonec.y"
+#line 83 "provolonec.y"
                    { char * output = concat((yyvsp[-1].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1159 "provolonec.tab.c"
+#line 1168 "provolonec.tab.c"
     break;
 
   case 9: /* cmd: ENQUANTO ID FACA cmds FIM  */
-#line 81 "provolonec.y"
+#line 85 "provolonec.y"
                                     { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
-#line 1165 "provolonec.tab.c"
+#line 1174 "provolonec.tab.c"
     break;
 
   case 10: /* cmd: ID IGUAL ID  */
-#line 82 "provolonec.y"
+#line 86 "provolonec.y"
                       { char * output = equals((yyvsp[-2].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1171 "provolonec.tab.c"
+#line 1180 "provolonec.tab.c"
     break;
 
   case 11: /* cmd: INC ID  */
-#line 83 "provolonec.y"
+#line 87 "provolonec.y"
                  { char * output = increment((yyvsp[0].str)); (yyval.str)=output; }
-#line 1177 "provolonec.tab.c"
+#line 1186 "provolonec.tab.c"
     break;
 
   case 12: /* cmd: ZERA ID  */
-#line 84 "provolonec.y"
+#line 88 "provolonec.y"
                   { char * output = nullify((yyvsp[0].str)); (yyval.str)=output; }
-#line 1183 "provolonec.tab.c"
+#line 1192 "provolonec.tab.c"
+    break;
+
+  case 13: /* cmd: SE ID ENTAO cmds FIMSEENTAO  */
+#line 89 "provolonec.y"
+                                      { char * output = ifAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
+#line 1198 "provolonec.tab.c"
     break;
 
 
-#line 1187 "provolonec.tab.c"
+#line 1202 "provolonec.tab.c"
 
       default: break;
     }
@@ -1377,7 +1392,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 86 "provolonec.y"
+#line 90 "provolonec.y"
 
 
 int main(int argc, char *argv[])
@@ -1549,6 +1564,33 @@ char * whileAssembly(char * sym1, char * sym2)
 
     return mem;
 
+}
+
+char * ifAssembly(char * sym1, char * sym2)
+{
+    auxiliar1 = "\n\tif(";
+    
+    auxiliar2 = ")\n\t{\n\t\t";
+
+    auxiliar3 = "\n\t}";
+   
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3) + strlen(sym1) + strlen(sym2);
+    
+    length += 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    strcat(mem, sym2);
+
+    strcat(mem, auxiliar3);
+
+    return mem;
 }
 
 char * increment(char * sym1)

@@ -32,6 +32,7 @@
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
     char * whileAssembly(char * sym1, char * sym2);
+    char * ifAssembly(char * sym1, char * sym2);
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
@@ -63,6 +64,9 @@
 %token<num> ENQUANTO;
 %token<num> FACA;
 %token<num> FIM;
+%token<num> SE;
+%token<num> ENTAO;
+%token<num> FIMSEENTAO;
 
 %start program
 %% 
@@ -82,7 +86,7 @@ cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); $$=
 cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
-
+cmd     : SE ID ENTAO cmds FIMSEENTAO { char * output = ifAssembly($2, $4); $$=output; out = concat(out, output); };
 %%
 
 int main(int argc, char *argv[])
@@ -254,6 +258,33 @@ char * whileAssembly(char * sym1, char * sym2)
 
     return mem;
 
+}
+
+char * ifAssembly(char * sym1, char * sym2)
+{
+    auxiliar1 = "\n\tif(";
+    
+    auxiliar2 = ")\n\t{\n\t\t";
+
+    auxiliar3 = "\n\t}";
+   
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3) + strlen(sym1) + strlen(sym2);
+    
+    length += 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    strcat(mem, sym2);
+
+    strcat(mem, auxiliar3);
+
+    return mem;
 }
 
 char * increment(char * sym1)

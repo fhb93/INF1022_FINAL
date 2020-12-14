@@ -1,9 +1,7 @@
 Program ENTRADA X, Y
         SAIDA Z
         Z=Y
-        ENQUANTO X FACA
+        SE X ENTAO
             INC(Z)
-        FIM
-        ZERA(X)
-        X = Y
+        FIMSEENTAO
     FIM
