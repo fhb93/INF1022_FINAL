@@ -1,9 +1,12 @@
 Program ENTRADA X, Y
         SAIDA Z
         Z=Y
+        ZERA(Z)
+        ZERA(Y)
+        INC(X)
         ENQUANTO X FACA
             INC(Z)
-        FIM
+        FIMENQUANTO
         ZERA(X)
         X = Y
     FIM

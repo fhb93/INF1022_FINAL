@@ -3,5 +3,5 @@ Program ENTRADA X, Y
         Z=Y
         ENQUANTO X FACA
             INC(Z)
-        FIM
+        FIMENQUANTO
     FIM

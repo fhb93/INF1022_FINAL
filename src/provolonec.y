@@ -15,6 +15,7 @@
     char * auxiliar3;
     char * auxiliar4;
     char * auxiliar5;
+    char * returnList;
 
 /* comprimento da palavra */
     int length = 0;
@@ -36,6 +37,7 @@
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
+    char * returningVarAnalysis(char * str);
 
 /* extras para o yacc */
     int yylex();
@@ -62,6 +64,7 @@
 %token<num> INC;
 %token<num> ZERA;
 %token<num> ENQUANTO;
+%token<num> FIMENQUANTO;
 %token<num> FACA;
 %token<num> FIM;
 %token<num> SE;
@@ -72,6 +75,7 @@
 %% 
 
 program: PROGRAM ENTRADA varlist1 SAIDA varlist2 cmds FIM { char * output = assembler($3, $5, $6); printf("\n\nCodigo Objeto em C: \n%s", output); exit(1); };
+
 varlist1 : ID { char * output = createVar($1); $$=output; };
         | varlist1 ID { char * output = createVar($2); out = concatVars($1, output); $$=out; };
 
@@ -82,11 +86,12 @@ varlist2 : ID { char * output = returnVarList($1); $$=output; };
 cmds    : cmd { $$=$1; };
         | cmd cmds { char * output = concat($1, $2); $$=output; };
 
-cmd     : ENQUANTO ID FACA cmds FIM { char * output = whileAssembly($2, $4); $$=output; out = concat(out, output); };
+cmd     : ENQUANTO ID FACA cmds FIMENQUANTO { char * output = whileAssembly($2, $4); $$=output; out = concat(out, output); };
 cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
 cmd     : SE ID ENTAO cmds FIMSEENTAO { char * output = ifAssembly($2, $4); $$=output; out = concat(out, output); };
+
 %%
 
 int main(int argc, char *argv[])
@@ -125,6 +130,8 @@ char * header(char * str1, char * str2)
     return mem;
 }
 
+//Lista de parametros
+
 char * createVar(char * sym1)
 {
     auxiliar1 = "int ";
@@ -148,6 +155,8 @@ char * createVar(char * sym1)
     return mem;
 }
 
+//definicao de variaveis locais
+
 char * addVar(char * sym1)
 {
     auxiliar1 = "int ";
@@ -167,13 +176,19 @@ char * addVar(char * sym1)
     return mem;
 }
 
+//Inclui variaveis de SAIDA na lista de vars de retorno
+
 char * returnVarList(char * str1)
 {
     auxiliar1 = " *";
 
-    length = strlen(auxiliar1) + strlen(str1) + 1;
+    length = strlen(str1) + strlen(auxiliar1) + 1;
 
     char * mem = malloc(length);
+
+    strcpy(mem, str1);
+
+    returnList = mem;
 
     strcpy(mem, auxiliar1);
 
@@ -289,15 +304,21 @@ char * ifAssembly(char * sym1, char * sym2)
 
 char * increment(char * sym1)
 {
-    auxiliar1 = " += 1;";    
+    auxiliar1 = "\n\t";
 
-    length = strlen(sym1) + strlen(auxiliar1) + 1;
+    auxiliar2 = " += 1;";    
+
+    sym1 = returningVarAnalysis(sym1);
+
+    length = strlen(sym1) + strlen(auxiliar1) + strlen(auxiliar2) + 1;
 
     char * mem = malloc(length);
 
-    strcpy(mem, sym1);
+    strcpy(mem, auxiliar1);
 
-    strcat(mem, auxiliar1);
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
 
     // strcat(mem, auxiliar2);
 
@@ -311,6 +332,10 @@ char * equals(char * sym1, char * sym2)
     auxiliar2 = " = ";
 
     auxiliar3 = ";";
+
+    sym1 = returningVarAnalysis(sym1);
+
+    sym2 = returningVarAnalysis(sym2);
 
     length = strlen(auxiliar1) + strlen(sym1) + strlen(sym2)+ strlen(auxiliar2) + strlen(auxiliar3) + 1;
 
@@ -335,6 +360,8 @@ char * nullify(char * sym1)
     
     auxiliar2 = " = 0;";
 
+    sym1 = returningVarAnalysis(sym1);
+
     length = strlen(auxiliar1) + strlen(sym1) + strlen(auxiliar2) + 1;
 
     char * mem = malloc(length);
@@ -348,6 +375,23 @@ char * nullify(char * sym1)
     return mem;
 }
 
+char * returningVarAnalysis(char * str)
+{
+    int i = 0;
+
+    while(returnList[i] != '\0')
+    {
+        if(returnList[i] == str[0])
+        {
+            str = concat("*", str);
+            break;
+        }
+        i++;
+    }
+
+    return str;
+}
+
 char * assembler(char * sym1, char * sym2, char * sym3)
 {
     char * head = "*** INF1022: PROVOL-ONE COMPILER ***\n";
@@ -356,9 +400,9 @@ char * assembler(char * sym1, char * sym2, char * sym3)
     
     char * paramList = sym1;
 
-    char * returnList = sym2;
+    char * tempReturnList = sym2;
 
-    char * mem = header(paramList, returnList);
+    char * mem = header(paramList, tempReturnList);
 
     char * ending = "\n}";
     

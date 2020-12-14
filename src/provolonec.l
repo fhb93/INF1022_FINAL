@@ -13,6 +13,7 @@ ENTRADA         return(ENTRADA);
 SAIDA           return(SAIDA);
 FACA            return(FACA);
 ENQUANTO        return(ENQUANTO);
+FIMENQUANTO     return(FIMENQUANTO);
 FIM             return(FIM);
 SE              return(SE);
 ENTAO           return(ENTAO);

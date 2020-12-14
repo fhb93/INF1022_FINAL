@@ -62,11 +62,12 @@ extern int yydebug;
     INC = 263,                     /* INC  */
     ZERA = 264,                    /* ZERA  */
     ENQUANTO = 265,                /* ENQUANTO  */
-    FACA = 266,                    /* FACA  */
-    FIM = 267,                     /* FIM  */
-    SE = 268,                      /* SE  */
-    ENTAO = 269,                   /* ENTAO  */
-    FIMSEENTAO = 270               /* FIMSEENTAO  */
+    FIMENQUANTO = 266,             /* FIMENQUANTO  */
+    FACA = 267,                    /* FACA  */
+    FIM = 268,                     /* FIM  */
+    SE = 269,                      /* SE  */
+    ENTAO = 270,                   /* ENTAO  */
+    FIMSEENTAO = 271               /* FIMSEENTAO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -80,7 +81,7 @@ union YYSTYPE
     char *str;
     int num;
 
-#line 84 "provolonec.tab.h"
+#line 85 "provolonec.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
