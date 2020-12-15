@@ -510,11 +510,13 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "provolonec.l"
+/*Felipe Holanda Bezerra - 1810238*/ 
+/*INF1022 - Analisadores Léxicos e Sintaticos*/
 #include <stdio.h>
 #include <string.h>
 #include "provolonec.tab.h"
 int yylineno;
-#line 518 "lex.yy.c"
+#line 520 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -696,10 +698,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 9 "provolonec.l"
+#line 11 "provolonec.l"
 
 
-#line 703 "lex.yy.c"
+#line 705 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -794,101 +796,101 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "provolonec.l"
+#line 13 "provolonec.l"
 return(PROGRAM);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "provolonec.l"
+#line 14 "provolonec.l"
 return(ENTRADA);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "provolonec.l"
+#line 15 "provolonec.l"
 return(SAIDA);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "provolonec.l"
+#line 16 "provolonec.l"
 return(FACA);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "provolonec.l"
+#line 17 "provolonec.l"
 return(VEZES);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "provolonec.l"
+#line 18 "provolonec.l"
 return(FIMFACA);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "provolonec.l"
+#line 19 "provolonec.l"
 return(ENQUANTO);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "provolonec.l"
+#line 20 "provolonec.l"
 return(FIMENQUANTO);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "provolonec.l"
+#line 21 "provolonec.l"
 return(FIM);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "provolonec.l"
+#line 22 "provolonec.l"
 return(SE);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "provolonec.l"
+#line 23 "provolonec.l"
 return(ENTAO);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "provolonec.l"
+#line 24 "provolonec.l"
 return(FIMSEENTAO);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "provolonec.l"
+#line 25 "provolonec.l"
 return(SENAO);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "provolonec.l"
+#line 26 "provolonec.l"
 return(IGUAL);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "provolonec.l"
+#line 27 "provolonec.l"
 return(INC);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "provolonec.l"
+#line 28 "provolonec.l"
 return(ZERA);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "provolonec.l"
+#line 29 "provolonec.l"
 {   yylval.str = strdup(yytext); return ID;  }
 	YY_BREAK
 case 18:
 /* rule 18 can match eol */
 YY_RULE_SETUP
-#line 28 "provolonec.l"
+#line 30 "provolonec.l"
 {}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "provolonec.l"
+#line 31 "provolonec.l"
 ECHO;
 	YY_BREAK
-#line 892 "lex.yy.c"
+#line 894 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1897,4 +1899,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "provolonec.l"
+#line 31 "provolonec.l"

@@ -1,4 +1,8 @@
 %{
+/*
+   Felipe Holanda Bezerra - 1810238 
+   INF1022 - Analisadores Lexicos e Sintaticos
+*/
 /* Secao de Definicoes */
 /* Importacao das bibliotecas */
     #include <stdio.h>
