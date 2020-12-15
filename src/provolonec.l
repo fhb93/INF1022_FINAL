@@ -18,6 +18,7 @@ FIM             return(FIM);
 SE              return(SE);
 ENTAO           return(ENTAO);
 FIMSEENTAO      return(FIMSEENTAO);
+SENAO           return(SENAO);
 "="             return(IGUAL);
 INC             return(INC);
 ZERA            return(ZERA);

@@ -34,6 +34,7 @@
     char * concat(char * sym1, char * sym2);
     char * whileAssembly(char * sym1, char * sym2);
     char * ifAssembly(char * sym1, char * sym2);
+    char * ifElseAssembly(char * sym1, char * sym2, char * sym3);
     char * increment(char * sym1);
     char * nullify(char * sym1);
     char * equals(char * sym1, char * sym2);
@@ -69,6 +70,7 @@
 %token<num> FIM;
 %token<num> SE;
 %token<num> ENTAO;
+%token<num> SENAO;
 %token<num> FIMSEENTAO;
 
 %start program
@@ -91,7 +93,7 @@ cmd     : ID IGUAL ID { char * output = equals($1, $3); $$=output; };
         | INC ID { char * output = increment($2); $$=output; };
         | ZERA ID { char * output = nullify($2); $$=output; };
 cmd     : SE ID ENTAO cmds FIMSEENTAO { char * output = ifAssembly($2, $4); $$=output; out = concat(out, output); };
-
+        | SE ID ENTAO cmds SENAO cmds FIMSEENTAO { char * output = ifElseAssembly($2, $4, $6); $$=output; out = concat(out, output); }; 
 %%
 
 int main(int argc, char *argv[])
@@ -108,7 +110,7 @@ char * header(char * str1, char * str2)
 
     auxiliar3 = strtok(str2, "int ");
     
-    auxiliar4 = ")\n{\n"; 
+    auxiliar4 = ")\n{"; 
     //auxiliar4 = strtok(str2, ";");
 
     length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
@@ -197,20 +199,20 @@ char * returnVarList(char * str1)
     return mem;
 }
 
-char * addSymbol(char * sym1)
-{
-    auxiliar1 = " ";
+// char * addSymbol(char * sym1)
+// {
+//     auxiliar1 = " ";
 
-    length = strlen(auxiliar1) + strlen(sym1) + 1;
+//     length = strlen(auxiliar1) + strlen(sym1) + 1;
 
-    char * mem = malloc(length * sizeof(char));
+//     char * mem = malloc(length * sizeof(char));
 
-    strcat(mem, sym1);
+//     strcat(mem, sym1);
 
-    strcat(mem, auxiliar1);
+//     strcat(mem, auxiliar1);
 
-    return mem;
-}
+//     return mem;
+// }
 
 char * concatVars(char * sym1, char * sym2)
 {
@@ -302,6 +304,46 @@ char * ifAssembly(char * sym1, char * sym2)
     return mem;
 }
 
+char * ifElseAssembly(char * sym1, char * sym2, char * sym3)
+{
+    auxiliar1 = "\n\tif(";
+    
+    auxiliar2 = ")\n\t{\t\t";
+
+    auxiliar3 = "\n\t}";
+
+    auxiliar4 = " else {";
+
+    auxiliar5 = "\n\t}";
+
+    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3); 
+   
+    length += strlen(auxiliar4) + strlen(auxiliar5);
+
+    length += strlen(sym1) + strlen(sym2) + strlen(sym3);
+
+    length += 1;
+
+    char * mem = malloc(length);
+
+    strcpy(mem, auxiliar1);
+
+    strcat(mem, sym1);
+
+    strcat(mem, auxiliar2);
+
+    strcat(mem, sym2);
+
+    strcat(mem, auxiliar3);
+
+    strcat(mem, auxiliar4);
+
+    strcat(mem, sym3);
+
+    strcat(mem, auxiliar5);
+
+    return mem;
+}
 char * increment(char * sym1)
 {
     auxiliar1 = "\n\t";

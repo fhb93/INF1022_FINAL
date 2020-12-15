@@ -2,8 +2,10 @@ Program ENTRADA a, b, c
         SAIDA d
         ZERA(b)
         SE a ENTAO 
-            INC(b) 
-            INC(c)
+            INC(b)
+            SE b ENTAO 
+                INC(c)
+            FIMSEENTAO 
             d = b
         SENAO 
             INC(a)
