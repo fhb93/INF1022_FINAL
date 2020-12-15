@@ -15,7 +15,7 @@
     char * auxiliar3;
     char * auxiliar4;
     char * auxiliar5;
-    char * returnList;
+    char * returnList = "";
 
 /* comprimento da palavra */
     int length = 0;
@@ -110,19 +110,45 @@ char * header(char * str1, char * str2)
 {
     auxiliar1 = "void function(";
 
-    auxiliar2 = ", int ";
+    // auxiliar2 = ", int ";
 
-    auxiliar3 = strtok(str2, "int ");
+    // auxiliar3 = strtok(str2, "int ");
     
     auxiliar4 = ")\n{"; 
+
+    int i = 0, j = 0;
     //auxiliar4 = strtok(str2, ";");
-    returnList = concat("int ", returnList);
 
-    //returnList = returningVarAnalysis(returnList);
+    //returnList = concat("int ", returnList);
 
-    length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
+    char accum[256] = "\0"; 
+
+    char * temp = "";
     
-    length += strlen(str1) + strlen(auxiliar4) + strlen(returnList) + 1;  
+    while(returnList[i] != '\0')
+    {
+        if(returnList[i] != ' ' && returnList[i] != '*')
+        {
+            accum[j] = returnList[i];
+            j++;
+        }
+        i++;
+    }
+
+    accum[j] = '\0';
+    
+    temp = malloc((sizeof(char) * (strlen(accum) * 7) + 1));
+
+    for(i = 0; i < j; i++)
+    {
+        char c[] = { accum[i], '\0' };
+        strcat(temp, ", ");
+        strcat(temp, concat("int * " , c));
+    }
+
+    length = strlen(auxiliar1);
+    
+    length += strlen(str1) + strlen(auxiliar4) + strlen(temp) + 1;  
 
     char * mem = malloc(length);
 
@@ -130,11 +156,7 @@ char * header(char * str1, char * str2)
 
     strcat(mem, str1);
 
-    strcat(mem, auxiliar2);
-
-    strcat(mem, auxiliar3);
-
-    strcat(mem, returnList);
+    strcat(mem, temp);
 
     strcat(mem, auxiliar4);
     
@@ -195,11 +217,27 @@ char * returnVarList(char * str1)
 
     length = strlen(str1) + strlen(auxiliar1) + 1;
 
+    printf("SAIDA: %s\n\n", str1);
+
     char * mem = malloc(length);
 
-    strcpy(mem, str1);
+    //returnList = malloc((str1 + str1 * strlen(auxiliar1)) * sizeof(char*));
 
-    returnList = mem;
+    strcpy(mem, str1);
+//    returnList = concat(returnList, str1);
+
+    if(strlen(returnList) < 2) 
+    {
+        returnList = mem;
+    }
+    else{
+        returnList = concat(returnList, " ");
+        
+        returnList = concat(returnList, mem);
+        
+    }
+
+    printf("Return list: %s\n\n", returnList);
 
     strcpy(mem, auxiliar1);
 
