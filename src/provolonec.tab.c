@@ -94,7 +94,6 @@
     char * createVar(char * sym1);
     char * addVar(char * sym1);
     char * returnVarList(char * str1);
-    char * addSymbol(char * sym1);
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
     char * whileAssembly(char * sym1, char * sym2);
@@ -115,7 +114,7 @@
     };
 
 
-#line 119 "provolonec.tab.c" /* yacc.c:339  */
+#line 118 "provolonec.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -175,12 +174,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 55 "provolonec.y" /* yacc.c:355  */
+#line 54 "provolonec.y" /* yacc.c:355  */
 
     char *str;
     int num;
 
-#line 184 "provolonec.tab.c" /* yacc.c:355  */
+#line 183 "provolonec.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -197,7 +196,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 201 "provolonec.tab.c" /* yacc.c:358  */
+#line 200 "provolonec.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -496,8 +495,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    82,    82,    84,    85,    87,    88,    91,    92,    94,
-      95,    96,    97,    98,    99,   100
+       0,    81,    81,    83,    84,    86,    87,    90,    91,    93,
+      94,    95,    96,    97,    98,    99
 };
 #endif
 
@@ -1291,91 +1290,91 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 82 "provolonec.y" /* yacc.c:1666  */
+#line 81 "provolonec.y" /* yacc.c:1666  */
     { char * output = assembler((yyvsp[-4].str), (yyvsp[-2].str), (yyvsp[-1].str)); printf("\n\nCodigo Objeto em C: \n%s", output); exit(1); }
-#line 1297 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1296 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 3:
-#line 84 "provolonec.y" /* yacc.c:1666  */
+#line 83 "provolonec.y" /* yacc.c:1666  */
     { char * output = createVar((yyvsp[0].str)); (yyval.str)=output; }
-#line 1303 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1302 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 4:
-#line 85 "provolonec.y" /* yacc.c:1666  */
+#line 84 "provolonec.y" /* yacc.c:1666  */
     { char * output = createVar((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1309 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1308 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 5:
-#line 87 "provolonec.y" /* yacc.c:1666  */
+#line 86 "provolonec.y" /* yacc.c:1666  */
     { char * output = returnVarList((yyvsp[0].str)); (yyval.str)=output; }
-#line 1315 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1314 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 6:
-#line 88 "provolonec.y" /* yacc.c:1666  */
+#line 87 "provolonec.y" /* yacc.c:1666  */
     { char * output = returnVarList((yyvsp[0].str)); out = concatVars((yyvsp[-1].str), output); (yyval.str)=out; }
-#line 1321 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1320 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 7:
-#line 91 "provolonec.y" /* yacc.c:1666  */
+#line 90 "provolonec.y" /* yacc.c:1666  */
     { (yyval.str)=(yyvsp[0].str); }
-#line 1327 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1326 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 8:
-#line 92 "provolonec.y" /* yacc.c:1666  */
+#line 91 "provolonec.y" /* yacc.c:1666  */
     { char * output = concat((yyvsp[-1].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1333 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1332 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 9:
-#line 94 "provolonec.y" /* yacc.c:1666  */
+#line 93 "provolonec.y" /* yacc.c:1666  */
     { char * output = whileAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
-#line 1339 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1338 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 10:
-#line 95 "provolonec.y" /* yacc.c:1666  */
+#line 94 "provolonec.y" /* yacc.c:1666  */
     { char * output = equals((yyvsp[-2].str), (yyvsp[0].str)); (yyval.str)=output; }
-#line 1345 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1344 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 11:
-#line 96 "provolonec.y" /* yacc.c:1666  */
+#line 95 "provolonec.y" /* yacc.c:1666  */
     { char * output = increment((yyvsp[0].str)); (yyval.str)=output; }
-#line 1351 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1350 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 12:
-#line 97 "provolonec.y" /* yacc.c:1666  */
+#line 96 "provolonec.y" /* yacc.c:1666  */
     { char * output = nullify((yyvsp[0].str)); (yyval.str)=output; }
-#line 1357 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1356 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 13:
-#line 98 "provolonec.y" /* yacc.c:1666  */
+#line 97 "provolonec.y" /* yacc.c:1666  */
     { char * output = ifAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
-#line 1363 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1362 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 14:
-#line 99 "provolonec.y" /* yacc.c:1666  */
+#line 98 "provolonec.y" /* yacc.c:1666  */
     { char * output = ifElseAssembly((yyvsp[-5].str), (yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; out = concat(out, output); }
-#line 1369 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1368 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
   case 15:
-#line 100 "provolonec.y" /* yacc.c:1666  */
+#line 99 "provolonec.y" /* yacc.c:1666  */
     { char * output = forAssembly((yyvsp[-3].str), (yyvsp[-1].str)); (yyval.str)=output; }
-#line 1375 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1374 "provolonec.tab.c" /* yacc.c:1666  */
     break;
 
 
-#line 1379 "provolonec.tab.c" /* yacc.c:1666  */
+#line 1378 "provolonec.tab.c" /* yacc.c:1666  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1603,7 +1602,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 102 "provolonec.y" /* yacc.c:1910  */
+#line 101 "provolonec.y" /* yacc.c:1910  */
 
 
 int main(int argc, char *argv[])
@@ -1622,10 +1621,13 @@ char * header(char * str1, char * str2)
     
     auxiliar4 = ")\n{"; 
     //auxiliar4 = strtok(str2, ";");
+    returnList = concat("int ", returnList);
+
+    //returnList = returningVarAnalysis(returnList);
 
     length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
     
-    length += strlen(str1) + strlen(auxiliar4) + 1;  
+    length += strlen(str1) + strlen(auxiliar4) + strlen(returnList) + 1;  
 
     char * mem = malloc(length);
 
@@ -1636,6 +1638,8 @@ char * header(char * str1, char * str2)
     strcat(mem, auxiliar2);
 
     strcat(mem, auxiliar3);
+
+    strcat(mem, returnList);
 
     strcat(mem, auxiliar4);
     
@@ -1708,21 +1712,6 @@ char * returnVarList(char * str1)
 
     return mem;
 }
-
-// char * addSymbol(char * sym1)
-// {
-//     auxiliar1 = " ";
-
-//     length = strlen(auxiliar1) + strlen(sym1) + 1;
-
-//     char * mem = malloc(length * sizeof(char));
-
-//     strcat(mem, sym1);
-
-//     strcat(mem, auxiliar1);
-
-//     return mem;
-// }
 
 char * concatVars(char * sym1, char * sym2)
 {

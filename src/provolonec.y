@@ -29,7 +29,6 @@
     char * createVar(char * sym1);
     char * addVar(char * sym1);
     char * returnVarList(char * str1);
-    char * addSymbol(char * sym1);
     char * concatVars(char * sym1, char * sym2);
     char * concat(char * sym1, char * sym2);
     char * whileAssembly(char * sym1, char * sym2);
@@ -117,10 +116,13 @@ char * header(char * str1, char * str2)
     
     auxiliar4 = ")\n{"; 
     //auxiliar4 = strtok(str2, ";");
+    returnList = concat("int ", returnList);
+
+    //returnList = returningVarAnalysis(returnList);
 
     length = strlen(auxiliar1) + strlen(auxiliar2) + strlen(auxiliar3);
     
-    length += strlen(str1) + strlen(auxiliar4) + 1;  
+    length += strlen(str1) + strlen(auxiliar4) + strlen(returnList) + 1;  
 
     char * mem = malloc(length);
 
@@ -131,6 +133,8 @@ char * header(char * str1, char * str2)
     strcat(mem, auxiliar2);
 
     strcat(mem, auxiliar3);
+
+    strcat(mem, returnList);
 
     strcat(mem, auxiliar4);
     
@@ -203,21 +207,6 @@ char * returnVarList(char * str1)
 
     return mem;
 }
-
-// char * addSymbol(char * sym1)
-// {
-//     auxiliar1 = " ";
-
-//     length = strlen(auxiliar1) + strlen(sym1) + 1;
-
-//     char * mem = malloc(length * sizeof(char));
-
-//     strcat(mem, sym1);
-
-//     strcat(mem, auxiliar1);
-
-//     return mem;
-// }
 
 char * concatVars(char * sym1, char * sym2)
 {

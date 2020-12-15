@@ -70,7 +70,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 55 "provolonec.y" /* yacc.c:1919  */
+#line 54 "provolonec.y" /* yacc.c:1919  */
 
     char *str;
     int num;
