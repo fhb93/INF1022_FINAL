@@ -7,4 +7,4 @@ Program ENTRADA a, b, c
         FIMSEENTAO
         d = c
         e = b 
-        FIM
+    FIM

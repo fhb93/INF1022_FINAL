@@ -14,4 +14,4 @@ Program ENTRADA a, b, c
             INC(a)
             d = a
         FIMSEENTAO 
-        FIM
+    FIM
