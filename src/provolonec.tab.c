@@ -1615,23 +1615,14 @@ char * header(char * str1, char * str2)
 {
     auxiliar1 = "void function(";
 
-    // auxiliar2 = ", int ";
-
-    // auxiliar3 = strtok(str2, "int ");
-    
-    auxiliar4 = ")\n{"; 
+    auxiliar2 = ")\n{"; 
 
     int i = 0, j = 0;
-    //auxiliar4 = strtok(str2, ";");
-
-    //returnList = concat("int ", returnList);
 
     char accum[256] = "\0"; 
 
     char * temp = "";
     
-    printf("%s\n", returnList);
-
     while(returnList[i] != '\0')
     {
         if(returnList[i] != ' ' && returnList[i] != '*')
@@ -1643,9 +1634,7 @@ char * header(char * str1, char * str2)
     }
 
     accum[j] = '\0';
-
-    printf("%s\n", accum);
-
+    
     temp = malloc((sizeof(char) * (strlen(accum) * 7) + 1));
 
     for(i = 0; i < j; i++)
@@ -1655,11 +1644,9 @@ char * header(char * str1, char * str2)
         strcat(temp, concat("int * " , c));
     }
 
-    //returnList = returningVarAnalysis(returnList);
-
     length = strlen(auxiliar1);
     
-    length += strlen(str1) + strlen(auxiliar4) + strlen(temp) + 1;  
+    length += strlen(str1) + strlen(auxiliar2) + strlen(temp) + 1;  
 
     char * mem = malloc(length);
 
@@ -1667,11 +1654,9 @@ char * header(char * str1, char * str2)
 
     strcat(mem, str1);
 
-    // strcat(mem, auxiliar3);
-
     strcat(mem, temp);
 
-    strcat(mem, auxiliar4);
+    strcat(mem, auxiliar2);
     
     return mem;
 }
