@@ -1611,6 +1611,8 @@ int main(int argc, char *argv[])
     return(0);
 }
 
+//Gerador de header com variaveis de entrada e saida (estas passadas por referencia)
+
 char * header(char * str1, char * str2)
 {
     auxiliar1 = "void function(";
@@ -1715,11 +1717,7 @@ char * returnVarList(char * str1)
 
     length = strlen(str1) + strlen(auxiliar1) + 1;
 
-    printf("SAIDA: %s\n\n", str1);
-
     char * mem = malloc(length);
-
-    //returnList = malloc((str1 + str1 * strlen(auxiliar1)) * sizeof(char*));
 
     strcpy(mem, str1);
 //    returnList = concat(returnList, str1);
@@ -1735,8 +1733,6 @@ char * returnVarList(char * str1)
         
     }
 
-    printf("Return list: %s\n\n", returnList);
-
     strcpy(mem, auxiliar1);
 
     strcat(mem, str1);
@@ -1744,6 +1740,7 @@ char * returnVarList(char * str1)
     return mem;
 }
 
+//Concatenador de variaveis de parametros
 char * concatVars(char * sym1, char * sym2)
 {
     length = strlen(sym1) + strlen(sym2) + 3; 
@@ -1772,6 +1769,8 @@ char * concat(char * sym1, char * sym2)
 
     return mem;
 }
+
+//Montador de While
 
 char * whileAssembly(char * sym1, char * sym2)
 {
@@ -1807,6 +1806,8 @@ char * whileAssembly(char * sym1, char * sym2)
 
 }
 
+//Montador de For
+
 char * forAssembly(char * sym1, char * sym2)
 {
     // for(i = 1; i <= sym1; i++)
@@ -1841,6 +1842,8 @@ char * forAssembly(char * sym1, char * sym2)
     return mem;
 }
 
+//Montador de IF
+
 char * ifAssembly(char * sym1, char * sym2)
 {
     auxiliar1 = "\n\tif(";
@@ -1867,6 +1870,8 @@ char * ifAssembly(char * sym1, char * sym2)
 
     return mem;
 }
+
+//Montador de IF-Then-ELSE
 
 char * ifElseAssembly(char * sym1, char * sym2, char * sym3)
 {
@@ -1908,6 +1913,9 @@ char * ifElseAssembly(char * sym1, char * sym2, char * sym3)
 
     return mem;
 }
+
+//Inc()
+
 char * increment(char * sym1)
 {
     auxiliar1 = "\n\t";
@@ -1930,6 +1938,8 @@ char * increment(char * sym1)
 
     return mem;
 }
+
+//Atribuicao
 
 char * equals(char * sym1, char * sym2)
 {
@@ -1960,6 +1970,8 @@ char * equals(char * sym1, char * sym2)
     return mem;
 }
 
+//Zera()
+
 char * nullify(char * sym1)
 {
     auxiliar1 = "\n\t";
@@ -1981,6 +1993,9 @@ char * nullify(char * sym1)
     return mem;
 }
 
+//Funcao auxiliar para incluir * nas variaveis de retorno dentro do 
+// escopo da funcao
+
 char * returningVarAnalysis(char * str)
 {
     int i = 0;
@@ -1997,6 +2012,8 @@ char * returningVarAnalysis(char * str)
 
     return str;
 }
+
+//Montador principal
 
 char * assembler(char * sym1, char * sym2, char * sym3)
 {

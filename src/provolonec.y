@@ -212,11 +212,7 @@ char * returnVarList(char * str1)
 
     length = strlen(str1) + strlen(auxiliar1) + 1;
 
-    printf("SAIDA: %s\n\n", str1);
-
     char * mem = malloc(length);
-
-    //returnList = malloc((str1 + str1 * strlen(auxiliar1)) * sizeof(char*));
 
     strcpy(mem, str1);
 //    returnList = concat(returnList, str1);
@@ -231,8 +227,6 @@ char * returnVarList(char * str1)
         returnList = concat(returnList, mem);
         
     }
-
-    printf("Return list: %s\n\n", returnList);
 
     strcpy(mem, auxiliar1);
 
