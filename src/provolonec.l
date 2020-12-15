@@ -12,6 +12,8 @@ Program         return(PROGRAM);
 ENTRADA         return(ENTRADA);
 SAIDA           return(SAIDA);
 FACA            return(FACA);
+VEZES           return(VEZES);
+FIMFACA         return(FIMFACA);
 ENQUANTO        return(ENQUANTO);
 FIMENQUANTO     return(FIMENQUANTO);
 FIM             return(FIM);

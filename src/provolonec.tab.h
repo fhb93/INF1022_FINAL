@@ -55,11 +55,13 @@ extern int yydebug;
     ENQUANTO = 265,
     FIMENQUANTO = 266,
     FACA = 267,
-    FIM = 268,
-    SE = 269,
-    ENTAO = 270,
-    SENAO = 271,
-    FIMSEENTAO = 272
+    VEZES = 268,
+    FIMFACA = 269,
+    FIM = 270,
+    SE = 271,
+    ENTAO = 272,
+    SENAO = 273,
+    FIMSEENTAO = 274
   };
 #endif
 
@@ -68,12 +70,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 54 "provolonec.y" /* yacc.c:1919  */
+#line 55 "provolonec.y" /* yacc.c:1919  */
 
     char *str;
     int num;
 
-#line 77 "provolonec.tab.h" /* yacc.c:1919  */
+#line 79 "provolonec.tab.h" /* yacc.c:1919  */
 };
 
 typedef union YYSTYPE YYSTYPE;

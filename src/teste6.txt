@@ -1,6 +1,9 @@
 Program ENTRADA a, b, c 
         SAIDA d
         ZERA(b)
+        FACA a VEZES
+            INC(b)
+        FIMFACA
         SE a ENTAO 
             INC(b)
             SE b ENTAO 
