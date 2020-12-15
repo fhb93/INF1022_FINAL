@@ -1,5 +1,5 @@
 /*Felipe Holanda Bezerra - 1810238*/ 
-/*INF1022 - Analisadores Léxicos e Sintaticos*/
+/*INF1022 - Analisadores Lexicos e Sintaticos*/
 %option yylineno
 
 %option yywrap
