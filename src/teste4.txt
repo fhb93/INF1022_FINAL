@@ -1,0 +1,10 @@
+Program ENTRADA a, b, c 
+        SAIDA d, e, f, g
+        SE a ENTAO 
+            INC(b) 
+            INC(a)
+            INC(c)
+        FIMSEENTAO
+        d = c
+        e = b 
+        FIM
