@@ -7,4 +7,6 @@ Program ENTRADA a, b, c
         FIMSEENTAO
         d = c
         e = b 
+        f = a
+        g = a
     FIM
