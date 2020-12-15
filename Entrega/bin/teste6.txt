@@ -1,0 +1,17 @@
+Program ENTRADA a, b, c 
+        SAIDA d
+        ZERA(b)
+        FACA a VEZES
+            INC(b)
+        FIMFACA
+        SE a ENTAO 
+            INC(b)
+            SE b ENTAO 
+                INC(c)
+            FIMSEENTAO 
+            d = b
+        SENAO 
+            INC(a)
+            d = a
+        FIMSEENTAO 
+    FIM

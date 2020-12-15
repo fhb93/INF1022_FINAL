@@ -1,0 +1,12 @@
+Program ENTRADA a, b, c 
+        SAIDA d
+        ZERA(b)
+        SE a ENTAO 
+            INC(b) 
+            INC(c)
+            d = b
+        SENAO 
+            INC(a)
+            d = a
+        FIMSEENTAO 
+    FIM
