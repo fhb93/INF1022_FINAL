@@ -279,7 +279,7 @@ char * whileAssembly(char * sym1, char * sym2)
     
     auxiliar3 = ")\n\t{";
 
-    auxiliar4 = "\n\t\t";
+    auxiliar4 = "\t\t";
 
     auxiliar5 = "\n\t}";
 
@@ -347,7 +347,7 @@ char * ifAssembly(char * sym1, char * sym2)
 {
     auxiliar1 = "\n\tif(";
     
-    auxiliar2 = ")\n\t{\n\t\t";
+    auxiliar2 = ")\n\t{\t\t";
 
     auxiliar3 = "\n\t}";
    

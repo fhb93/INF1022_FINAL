@@ -27,4 +27,5 @@ SENAO           return(SENAO);
 INC             return(INC);
 ZERA            return(ZERA);
 [a-zA-Z]+       {   yylval.str = strdup(yytext); return ID;  }
+[0-9]+          {   yylval.str = strdup(yytext); return ID;  }
 [\t\n ]         {}
