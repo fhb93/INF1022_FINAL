@@ -94,7 +94,7 @@
 
 /* operacoes de montagem do código objeto */
     char * assembler(char * sym1, char * sym2, char * sym3);
-    char * header(char * str1, char * str2);
+    char * header(char * str1);
     char * createVar(char * sym1);
     char * addVar(char * sym1);
     char * returnVarList(char * str1);
@@ -1617,7 +1617,7 @@ int main(int argc, char *argv[])
 
 //Gerador de header com variaveis de entrada e saida (estas passadas por referencia)
 
-char * header(char * str1, char * str2)
+char * header(char * str1)
 {
     auxiliar1 = "void function(";
 
@@ -1673,21 +1673,13 @@ char * createVar(char * sym1)
 {
     auxiliar1 = "int ";
     
-    // auxiliar2 = " = 0;";
-    
-    // auxiliar3 = "\n";
-
-    length += strlen(auxiliar1) + strlen(sym1);// + strlen(auxiliar2) + strlen(auxiliar3) + 1;
+    length += strlen(auxiliar1) + strlen(sym1);
 
     char * mem = malloc(length * sizeof(char));
 
     strcat(mem, auxiliar1);
     
     strcat(mem, sym1);
-    
-    // strcat(mem, auxiliar2);
-
-    // strcat(mem, auxiliar3);
 
     return mem;
 }
@@ -1724,7 +1716,6 @@ char * returnVarList(char * str1)
     char * mem = malloc(length);
 
     strcpy(mem, str1);
-//    returnList = concat(returnList, str1);
 
     if(strlen(returnList) < 2) 
     {
@@ -1748,7 +1739,7 @@ char * returnVarList(char * str1)
 char * concatVars(char * sym1, char * sym2)
 {
     length = strlen(sym1) + strlen(sym2) + 3; 
-    // 2 pq temos o \0 o espaco e a virgula entre variaveis
+    // pq 3 ? 3 = 1 + 2, 2 pq temos o \0 o espaco e a virgula entre variaveis
 
     char * mem = malloc(length * sizeof(char));
 
@@ -2027,9 +2018,7 @@ char * assembler(char * sym1, char * sym2, char * sym3)
     
     char * paramList = sym1;
 
-    char * tempReturnList = sym2;
-
-    char * mem = header(paramList, tempReturnList);
+    char * mem = header(paramList);
 
     char * ending = "\n}";
     
